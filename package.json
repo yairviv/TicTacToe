@@ -1,0 +1,19 @@
+{
+  "name": "xo",
+  "version": "1.0.0",
+  "description": "xo game",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "npm start --prefix client"
+  },
+  "author": "Yair Revivo",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.2.0",
+    "express": "^4.17.1",
+    "redux": "^4.0.5"
+  }
+}
