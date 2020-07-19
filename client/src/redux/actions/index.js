@@ -1,4 +1,5 @@
 export const UPDATE_BOARD = 'UPDATE_BOARD'
+export const INIT_BOARD = 'INIT_BOARD'
 
 export const updateBoard = (query) => dispatch => {
     let finalUrl = 'http://localhost:5000'
@@ -11,7 +12,16 @@ export const updateBoard = (query) => dispatch => {
     if (query.input !== undefined) {
         finalUrl = finalUrl + `&input=${query.input}`;
     }
+    if (query._id !== undefined) {
+        finalUrl = finalUrl + `&_id=${query._id}`;
+    }
     return fetch(finalUrl)
         .then(res => res.json())
         .then(board => dispatch({ type: UPDATE_BOARD, payload: board }))
+}
+export const initBoard = (query) => dispatch => {
+    let finalUrl = 'http://localhost:5000'
+    return fetch(finalUrl)
+        .then(res => res.json())
+        .then(board => dispatch({ type: INIT_BOARD, payload: board }))
 }

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SquareComponent from "./SquareComponent";
 import './mainCss.css';
 import { connect } from 'react-redux';
-import { updateBoard } from '../redux/actions/index';
+import { updateBoard, initBoard } from '../redux/actions/index';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     updateBoard: (updateObj) => dispatch(updateBoard(updateObj)),
+    initBoard: () => dispatch(initBoard()),
 });
 
 const mapStateToProps = (state) => {
@@ -14,16 +15,23 @@ const mapStateToProps = (state) => {
 
 function MainComponent(props) {
     const [player, setPlayer] = useState('X');
+    const [resetFlag, setResetFlag] = useState(false);
+
+    useEffect(() => props.initBoard(),
+        [resetFlag])
+
     function onClick(line, index, input) {
         let newPlayer = player == 'X' ? 'O' : 'X';
         let updateObj = {
             line: line,
             index: index,
-            input: input
+            input: input,
+            _id: props.board._id
         }
         props.updateBoard(updateObj)
         setPlayer(newPlayer)
     }
+
 
     return (
         <div>
