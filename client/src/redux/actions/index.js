@@ -1,17 +1,19 @@
+import axios from 'axios';
 export const UPDATE_BOARD = 'UPDATE_BOARD'
+export const INIT_BOARD = 'INIT_BOARD'
 
 export const updateBoard = (query) => dispatch => {
     let finalUrl = 'http://localhost:5000'
-    if (query.line !== undefined) {
-        finalUrl = finalUrl + `?line=${query.line}`;
-    }
-    if (query.index !== undefined) {
-        finalUrl = finalUrl + `&index=${query.index}`;
-    }
-    if (query.input !== undefined) {
-        finalUrl = finalUrl + `&input=${query.input}`;
-    }
-    return fetch(finalUrl)
-        .then(res => res.json())
-        .then(board => dispatch({ type: UPDATE_BOARD, payload: board }))
+    return axios.put(finalUrl, query, { 'Authorization': 'Bearer Developer_Token', 'Content-Type': 'application/json' }).then(res => {
+        const board = res.data;
+        dispatch({ type: UPDATE_BOARD, payload: board })
+    });
+}
+export const initBoard = (query) => dispatch => {
+    let finalUrl = 'http://localhost:5000'
+    return axios.post(finalUrl)
+        .then(res => {
+            const board = res.data;
+            dispatch({ type: INIT_BOARD, payload: board })
+        })
 }
