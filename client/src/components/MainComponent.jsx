@@ -33,7 +33,7 @@ function MainComponent(props) {
             line: line,
             index: index,
             input: input,
-            id: props.board._id
+            _id: props.board._id
         }
         props.updateBoard(updateObj)
         setPlayer(newPlayer)

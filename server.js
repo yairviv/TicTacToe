@@ -42,7 +42,7 @@ app.put('/', async (req, res) => {
     let index = req.body.index;
     let value = req.body.input;
     bord[`line${line}`][index] = value;
-    bord.id = req.body.id;
+    bord._id = req.body._id;
     bord = await boardRepository.updateBoard(bord);
     if (checkWinner()) {
         return res.send(JSON.stringify({ bord: bord, winner: value }));
