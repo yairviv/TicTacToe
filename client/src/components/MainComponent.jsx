@@ -17,8 +17,15 @@ function MainComponent(props) {
     const [player, setPlayer] = useState('X');
     const [resetFlag, setResetFlag] = useState(false);
 
-    useEffect(() => props.initBoard(),
-        [resetFlag])
+
+    useEffect(() => {
+        async function fetchData() {
+            // You can await here
+            await props.initBoard();
+            // ...
+        }
+        fetchData();
+    }, [resetFlag]); // Or [] if effect doesn't need props or state
 
     function onClick(line, index, input) {
         let newPlayer = player == 'X' ? 'O' : 'X';
@@ -26,7 +33,7 @@ function MainComponent(props) {
             line: line,
             index: index,
             input: input,
-            _id: props.board._id
+            id: props.board._id
         }
         props.updateBoard(updateObj)
         setPlayer(newPlayer)

@@ -25,7 +25,7 @@ class boardRepository {
 
     async updateBoard(board) {
         var Board = mongoose.model('boards', this.boardSchema);
-        let dbResult = await Board.find({ _id: board._id });
+        let dbResult = await Board.find({ _id: board.id });
         let dbObj = dbResult[0];
         dbObj.line1 = board.line1;
         dbObj.line2 = board.line2;
